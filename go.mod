@@ -1,4 +1,4 @@
-module github.com/marcantoineg/wind-chill
+module github.com/marcantoineg/windchill
 
 go 1.18
 

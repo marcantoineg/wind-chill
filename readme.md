@@ -1,5 +1,5 @@
 # Description
-[![CI](https://github.com/marcantoineg/wind-chill/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/marcantoineg/wind-chill/actions/workflows/ci.yaml)
+[![CI](https://github.com/marcantoineg/windchill/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/marcantoineg/windchill/actions/workflows/ci.yaml)
 
 A simple program to calculate windchill factor.
 
