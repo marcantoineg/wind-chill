@@ -56,8 +56,8 @@ func TestCelsius(t *testing.T) {
 		{given: K(373.15), expected: C(100)},
 	}, func(tr testrun) {
 		actual := tr.given.Celsius()
-		assert.InDelta(tr.t, tr.expected.value, actual.value, 0.0001)
-		assert.Equal(tr.t, tr.expected.unit, actual.unit)
+		assert.InDelta(tr.t, tr.expected.Value, actual.Value, 0.0001)
+		assert.Equal(tr.t, tr.expected.Unit, actual.Unit)
 	})
 }
 
@@ -80,8 +80,8 @@ func TestFahrenheit(t *testing.T) {
 		{given: K(273.15), expected: F(32)},
 	}, func(tr testrun) {
 		actual := tr.given.Fahrenheit()
-		assert.InDelta(tr.t, tr.expected.value, actual.value, 0.001)
-		assert.Equal(tr.t, tr.expected.unit, actual.unit)
+		assert.InDelta(tr.t, tr.expected.Value, actual.Value, 0.001)
+		assert.Equal(tr.t, tr.expected.Unit, actual.Unit)
 	})
 }
 
@@ -104,8 +104,8 @@ func TestKelvin(t *testing.T) {
 		{given: K(373.15), expected: K(373.15)},
 	}, func(tr testrun) {
 		actual := tr.given.Kelvin()
-		assert.InDelta(tr.t, tr.expected.value, actual.value, 0.001)
-		assert.Equal(tr.t, tr.expected.unit, actual.unit)
+		assert.InDelta(tr.t, tr.expected.Value, actual.Value, 0.001)
+		assert.Equal(tr.t, tr.expected.Unit, actual.Unit)
 	})
 }
 
@@ -117,7 +117,7 @@ type testrun struct {
 
 func test(tt *testing.T, testruns []testrun, testblock func(tr testrun)) {
 	for _, tr := range testruns {
-		tt.Run(fmt.Sprintf("°%c to °%c", tr.given.unit, tr.expected.unit), func(t *testing.T) {
+		tt.Run(fmt.Sprintf("°%c to °%c", tr.given.Unit, tr.expected.Unit), func(t *testing.T) {
 			tr.t = t
 			testblock(tr)
 		})

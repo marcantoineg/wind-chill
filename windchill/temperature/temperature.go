@@ -11,87 +11,104 @@ const (
 
 // Temperature is a type used to describe the numerical value of a Temperature and it's unit.
 type Temperature struct {
-	value float64
-	unit  TemperatureUnit
+	Value float64
+	Unit  TemperatureUnit
 }
 
-// C returns a new Celsius Temperature with its value set to the given float.
+// C returns a new Celsius Temperature with its Value set to the given float.
 func C(f float64) Temperature {
 	return Temperature{f, Celsius}
 }
 
-// F returns a new Fahrenheit Temperature with its value set to the given float.
+// F returns a new Fahrenheit Temperature with its Value set to the given float.
 func F(f float64) Temperature {
 	return Temperature{f, Fahrenheit}
 }
 
-// K returns a new Kelvin Temperature with its value set to the given float.
+// K returns a new Kelvin Temperature with its Value set to the given float.
 func K(f float64) Temperature {
 	return Temperature{f, Kelvin}
 }
 
+type converter struct {
+	convertTo TemperatureUnit
+	fromC     func(v float64) float64
+	fromF     func(v float64) float64
+	fromK     func(v float64) float64
+}
+
 // Celsius returns a new Temperature converted to Celsius.
 func (t Temperature) Celsius() Temperature {
-	switch t.unit {
-	case Fahrenheit:
-		return Temperature{
-			// °C = (°F − 32) * 5/9
-			(t.value - 32.) * (5. / 9.),
-			Celsius,
-		}
-
-	case Kelvin:
-		return Temperature{
-			// °C = °K - 273.15
-			t.value - 273.15,
-			Celsius,
-		}
-
-	default:
-		return t
-	}
+	return t.convert(
+		converter{
+			convertTo: Celsius,
+			fromC: func(v float64) float64 {
+				return t.Value
+			},
+			fromF: func(v float64) float64 {
+				// °C = (°F − 32) * 5/9
+				return (t.Value - 32.) * (5. / 9.)
+			},
+			fromK: func(v float64) float64 {
+				// °C = °K - 273.15
+				return t.Value - 273.15
+			},
+		},
+	)
 }
 
 // Fahrenheit returns a new Temperature converted to Fahrenheit.
 func (t Temperature) Fahrenheit() Temperature {
-	switch t.unit {
-	case Celsius:
-		return Temperature{
-			// °F = (°C * 9/5) + 32
-			(t.value * (9. / 5.)) + 32.,
-			Fahrenheit,
-		}
-
-	case Kelvin:
-		return Temperature{
-			// °F = (°K − 273.15) * 9/5 + 32
-			(t.value-273.15)*(9./5.) + 32,
-			Fahrenheit,
-		}
-
-	default:
-		return t
-	}
+	return t.convert(
+		converter{
+			convertTo: Fahrenheit,
+			fromC: func(v float64) float64 {
+				// °F = (°C * 9/5) + 32
+				return (t.Value * (9. / 5.)) + 32.
+			},
+			fromF: func(v float64) float64 {
+				return t.Value
+			},
+			fromK: func(v float64) float64 {
+				// °F = (°K − 273.15) * 9/5 + 32
+				return (t.Value-273.15)*(9./5.) + 32
+			},
+		},
+	)
 }
 
 // Kelvin returns a new Temperature converted to Kelvin.
 func (t Temperature) Kelvin() Temperature {
-	switch t.unit {
+	return t.convert(
+		converter{
+			convertTo: Kelvin,
+			fromC: func(v float64) float64 {
+				// °K = °C + 273.15
+				return t.Value + 273.15
+			},
+			fromF: func(v float64) float64 {
+				// °K = 5/9 * (°F + 459.67)
+				return (5. / 9.) * (t.Value + 459.67)
+			},
+			fromK: func(v float64) float64 {
+				return t.Value
+			},
+		},
+	)
+}
+
+func (t Temperature) convert(c converter) Temperature {
+	var convertedValue float64
+	switch t.Unit {
 	case Celsius:
-		return Temperature{
-			// °K = °C + 273.15
-			t.value + 273.15,
-			Kelvin,
-		}
-
+		convertedValue = c.fromC(t.Value)
 	case Fahrenheit:
-		return Temperature{
-			// °K = 5/9 * (°F + 459.67)
-			(5. / 9.) * (t.value + 459.67),
-			Kelvin,
-		}
-
+		convertedValue = c.fromF(t.Value)
+	case Kelvin:
+		convertedValue = c.fromK(t.Value)
 	default:
-		return t
+		panic("unit not supported")
 	}
+
+	return Temperature{convertedValue, c.convertTo}
 }
