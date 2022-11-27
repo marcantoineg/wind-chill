@@ -12,6 +12,7 @@ func TestMPH(t *testing.T) {
 		given   Speed
 		expects Speed
 	}{
+		{name: "-30 kph to mph", given: Speed{-30, KPH}, expects: Speed{18.6411, MPH}},
 		{name: "0 kph to mph", given: Speed{0, KPH}, expects: Speed{0, MPH}},
 		{name: "1 kph to mph", given: Speed{1, KPH}, expects: Speed{0.621371, MPH}},
 		{name: "30 kph to mph", given: Speed{30, KPH}, expects: Speed{18.6411, MPH}},
@@ -35,6 +36,7 @@ func TestKPH(t *testing.T) {
 		given   Speed
 		expects Speed
 	}{
+		{name: "-25 mph to kph", given: Speed{-25, MPH}, expects: Speed{40.2336, KPH}},
 		{name: "0 mph to kph", given: Speed{0, MPH}, expects: Speed{0, KPH}},
 		{name: "1 mph to kph", given: Speed{1, MPH}, expects: Speed{1.60934, KPH}},
 		{name: "25 mph to kph", given: Speed{25, MPH}, expects: Speed{40.2336, KPH}},

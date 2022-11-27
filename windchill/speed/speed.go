@@ -1,11 +1,13 @@
 // package speed defines a type `Speed` to represent & convert speed units.
 package speed
 
-type speedUnit rune
+import "math"
+
+type speedUnit string
 
 const (
-	KPH speedUnit = 'K'
-	MPH speedUnit = 'M'
+	KPH speedUnit = "Km/h"
+	MPH speedUnit = "Mph"
 
 	mileToKm = 1.609344
 )
@@ -26,18 +28,22 @@ func Mph(v float64) Speed {
 	return Speed{v, MPH}
 }
 
-// KPH returns a new speed converted to km/h.
+// Kph returns a new, always positive speed converted to kph.
 func (s Speed) Kph() Speed {
-	if s.Unit == KPH || s.Unit < 0 {
+	if s.Unit == KPH {
 		return s
+	} else if s.Value < 0 {
+		s.Value = math.Abs(s.Value)
 	}
 	return Speed{s.Value * mileToKm, KPH}
 }
 
-// MPH returns a new speed converted to mph.
+// Mph returns a new, always positive speed converted to mph.
 func (s Speed) Mph() Speed {
-	if s.Unit == MPH || s.Unit < 0 {
+	if s.Unit == MPH {
 		return s
+	} else if s.Value < 0 {
+		s.Value = math.Abs(s.Value)
 	}
 	return Speed{s.Value / mileToKm, MPH}
 }

@@ -1,12 +1,12 @@
 // package temperature defines a type `Temperature` to represent & convert temperature units.
 package temperature
 
-type TemperatureUnit rune
+type TemperatureUnit string
 
 const (
-	Celsius    TemperatureUnit = 'C'
-	Fahrenheit TemperatureUnit = 'F'
-	Kelvin     TemperatureUnit = 'K'
+	Celsius    TemperatureUnit = "C"
+	Fahrenheit TemperatureUnit = "F"
+	Kelvin     TemperatureUnit = "K"
 )
 
 // Temperature is a type used to describe the numerical value of a Temperature and it's unit.
