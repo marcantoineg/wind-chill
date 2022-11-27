@@ -6,8 +6,8 @@ import "math"
 type speedUnit string
 
 const (
-	KPH speedUnit = "Km/h"
-	MPH speedUnit = "Mph"
+	KPH speedUnit = "kph"
+	MPH speedUnit = "mph"
 
 	mileToKm = 1.609344
 )
