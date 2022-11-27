@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const testNameTemplate = "air temp (°%c): %f | wind speed (%c): %f => expects (°%c): %f"
+const testNameTemplate = "air temp (°%s): %f | wind speed (%s): %f => expects (°%s): %f"
 
 type testrun struct {
 	givenTemp  temp.Temperature

@@ -117,7 +117,7 @@ type testrun struct {
 
 func test(tt *testing.T, testruns []testrun, testblock func(tr testrun)) {
 	for _, tr := range testruns {
-		tt.Run(fmt.Sprintf("°%c to °%c", tr.given.Unit, tr.expected.Unit), func(t *testing.T) {
+		tt.Run(fmt.Sprintf("°%s to °%s", tr.given.Unit, tr.expected.Unit), func(t *testing.T) {
 			tr.t = t
 			testblock(tr)
 		})
