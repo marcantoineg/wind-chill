@@ -30,20 +30,18 @@ func Mph(v float64) Speed {
 
 // Kph returns a new, always positive speed converted to kph.
 func (s Speed) Kph() Speed {
+	s.Value = math.Abs(s.Value)
 	if s.Unit == KPH {
 		return s
-	} else if s.Value < 0 {
-		s.Value = math.Abs(s.Value)
 	}
 	return Speed{s.Value * mileToKm, KPH}
 }
 
 // Mph returns a new, always positive speed converted to mph.
 func (s Speed) Mph() Speed {
+	s.Value = math.Abs(s.Value)
 	if s.Unit == MPH {
 		return s
-	} else if s.Value < 0 {
-		s.Value = math.Abs(s.Value)
 	}
 	return Speed{s.Value / mileToKm, MPH}
 }
