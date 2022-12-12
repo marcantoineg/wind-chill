@@ -1,6 +1,8 @@
 // package temperature defines a type `Temperature` to represent & convert temperature units.
 package temperature
 
+import "fmt"
+
 type TemperatureUnit string
 
 const (
@@ -107,7 +109,7 @@ func (t Temperature) convert(c converter) Temperature {
 	case Kelvin:
 		convertedValue = c.fromK(t.Value)
 	default:
-		panic("unit not supported")
+		panic(fmt.Sprintf("unit '%s' is not supported", t.Unit))
 	}
 
 	return Temperature{convertedValue, c.convertTo}
