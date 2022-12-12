@@ -3,11 +3,11 @@ package speed
 
 import "math"
 
-type speedUnit string
+type SpeedUnit string
 
 const (
-	KPH speedUnit = "kph"
-	MPH speedUnit = "mph"
+	KPH SpeedUnit = "kph"
+	MPH SpeedUnit = "mph"
 
 	mileToKm = 1.609344
 )
@@ -15,7 +15,7 @@ const (
 // Speed reprensents the numerical value of a speed and it's unit.
 type Speed struct {
 	Value float64
-	Unit  speedUnit
+	Unit  SpeedUnit
 }
 
 // Kph returns a new KPH speed with its Value set to the given float.
