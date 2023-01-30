@@ -2,6 +2,7 @@
 
 # ❄️ windchill
 [![CI](https://github.com/marcantoineg/windchill/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/marcantoineg/windchill/actions/workflows/ci.yaml)
+<img height="20px" src="https://img.shields.io/badge/Golang-FFFFFF?logo=go&style=flat">
 
 A simple program to calculate windchill factor.
 
